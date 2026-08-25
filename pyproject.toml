@@ -1,0 +1,17 @@
+[project]
+name = "e-library-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "olukayode-asemudara", email = "theolukayodeasemudara@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+e-library-system = "e_library_system:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
