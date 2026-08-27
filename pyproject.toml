@@ -7,7 +7,9 @@ authors = [
     { name = "olukayode-asemudara", email = "theolukayodeasemudara@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "pydantic>=2.13.4",
+]
 
 [project.scripts]
 e-library-system = "e_library_system:main"
