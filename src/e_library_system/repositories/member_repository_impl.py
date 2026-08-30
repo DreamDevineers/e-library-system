@@ -9,9 +9,9 @@ class MemberRepositoryImpl(MemberRepository):
     def __init__(self, db: Session):
         self.db = db
 
-    def create_member(self, id: str, data: Member):
+    def create_member(self, member_id: str, data: Member):
         member = Member(
-            id=id,
+            id=member_id,
             name=data.name,
             email=data.email,
             phone=data.phone,
@@ -28,14 +28,14 @@ class MemberRepositoryImpl(MemberRepository):
     def get_all(self):
         return self.db.query(Member).all()
 
-    def get_by_id(self, id: str):
-        return self.db.query(Member).filter(Member.id == id).first()
+    def get_by_id(self, member_id: str):
+        return self.db.query(Member).filter(Member.id == member_id).first()
 
     def get_by_email(self, email: str):
         return self.db.query(Member).filter(Member.email == email).first()
 
-    def update_member(self, id: str, data: Member):
-        member = self.get_by_id(id)
+    def update_member(self, member_id: str, data: Member):
+        member = self.get_by_id(member_id)
 
         if member is None:
             return None
@@ -51,8 +51,8 @@ class MemberRepositoryImpl(MemberRepository):
 
         return member
 
-    def delete_member(self, id: str):
-        member = self.get_by_id(id)
+    def delete_member(self, member_id: str):
+        member = self.get_by_id(member_id)
 
         if member is None:
             return False

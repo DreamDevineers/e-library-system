@@ -6,7 +6,7 @@ from e_library_system.models.member import Member
 class MemberRepository(ABC):
 
     @abstractmethod
-    def create_member(self, id: str, data: Member):
+    def create_member(self, member_id: str, data: Member):
         ...
 
     @abstractmethod
@@ -14,7 +14,7 @@ class MemberRepository(ABC):
         ...
 
     @abstractmethod
-    def get_by_id(self, id: str):
+    def get_by_id(self, member_id: str):
         ...
 
     @abstractmethod
@@ -22,9 +22,9 @@ class MemberRepository(ABC):
         ...
 
     @abstractmethod
-    def update_member(self, id: str, data: Member):
+    def update_member(self, member_id: str, data: Member):
         ...
 
     @abstractmethod
-    def delete_member(self, id: str):
+    def delete_member(self, member_id: str):
         ...
