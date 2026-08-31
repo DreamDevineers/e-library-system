@@ -1,0 +1,2 @@
+class GetAllBooksException(Exception):
+    pass

@@ -11,3 +11,4 @@ class Book(BaseModel):
     category: str
     total_copies: int
     available_copies: int
+
