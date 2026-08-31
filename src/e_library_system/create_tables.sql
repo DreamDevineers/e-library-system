@@ -9,3 +9,4 @@ CREATE TABLE members (
     joined_at DATETIME NOT NULL,
     active BOOLEAN DEFAULT FALSE
 );
+
