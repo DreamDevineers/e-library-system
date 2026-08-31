@@ -1,63 +1,107 @@
-from sqlalchemy.orm import Session
-
+from uuid import UUID
 from e_library_system.models.member import Member
 from e_library_system.repositories.member_repository import MemberRepository
+from e_library_system.database import Database
 
 
 class MemberRepositoryImpl(MemberRepository):
 
-    def __init__(self, db: Session):
-        self.db = db
+    def __init__(self):
+        self.db = Database()
+        self.db.connect()
 
-    def create_member(self, member_id: str, data: Member):
-        member = Member(
-            id=member_id,
-            name=data.name,
-            email=data.email,
-            phone=data.phone,
-            join_date=data.join_date,
-            active=data.active
+    def create_member(self, member: Member):
+        query = """
+                INSERT INTO members (id, name, email, phone, joined_at, active)
+                VALUES (%s, %s, %s, %s, %s, %s) \
+                """
+        values = (
+            str(member.id),
+            member.name,
+            member.email,
+            member.phone,
+            member.joined_at,
+            member.active
         )
 
-        self.db.add(member)
-        self.db.commit()
-        self.db.refresh(member)
-
+        self.db.cursor.execute(query, values)
+        self.db.connection.commit()
         return member
 
     def get_all(self):
-        return self.db.query(Member).all()
+        query = "SELECT * FROM members"
+        self.db.cursor.execute(query)
+        results = self.db.cursor.fetchall()
 
-    def get_by_id(self, member_id: str):
-        return self.db.query(Member).filter(Member.id == member_id).first()
+        members = []
+        for row in results:
+            members.append(Member(
+                id=UUID(row['id']),
+                name=row['name'],
+                email=row['email'],
+                phone=row['phone'],
+                joined_at=row['joined_at'],
+                active=bool(row['active'])
+            ))
+        return members
+
+    def get_by_id(self, member_id: UUID):
+        query = "SELECT * FROM members WHERE id = %s"
+        self.db.cursor.execute(query, (str(member_id),))
+        row = self.db.cursor.fetchone()
+
+        if row:
+            return Member(
+                id=UUID(row['id']),
+                name=row['name'],
+                email=row['email'],
+                phone=row['phone'],
+                joined_at=row['joined_at'],
+                active=bool(row['active'])
+            )
+        return None
 
     def get_by_email(self, email: str):
-        return self.db.query(Member).filter(Member.email == email).first()
+        query = "SELECT * FROM members WHERE email = %s"
+        self.db.cursor.execute(query, (email,))
+        row = self.db.cursor.fetchone()
 
-    def update_member(self, member_id: str, data: Member):
-        member = self.get_by_id(member_id)
+        if row:
+            return Member(
+                id=UUID(row['id']),
+                name=row['name'],
+                email=row['email'],
+                phone=row['phone'],
+                joined_at=row['joined_at'],
+                active=bool(row['active'])
+            )
+        return None
 
-        if member is None:
-            return None
+    def update_member(self, member_id: UUID, member: Member):
+        query = """
+                UPDATE members
+                SET name      = %s, \
+                    email     = %s, \
+                    phone     = %s, \
+                    joined_at = %s, \
+                    active    = %s
+                WHERE id = %s \
+                """
+        values = (
+            member.name,
+            member.email,
+            member.phone,
+            member.joined_at,
+            member.active,
+            str(member_id)
+        )
 
-        member.name = data.name
-        member.email = data.email
-        member.phone = data.phone
-        member.join_date = data.join_date
-        member.active = data.active
+        self.db.cursor.execute(query, values)
+        self.db.connection.commit()
+        return self.get_by_id(member_id)
 
-        self.db.commit()
-        self.db.refresh(member)
-
-        return member
-
-    def delete_member(self, member_id: str):
-        member = self.get_by_id(member_id)
-
-        if member is None:
-            return False
-
-        self.db.delete(member)
-        self.db.commit()
-
-        return True
+    def delete_member(self, member_id: UUID):
+        query = "DELETE FROM members WHERE id = %s"
+        self.db.cursor.execute(query, (str(member_id),))
+        self.db.connection.commit()
+        return self.db.cursor.rowcount > 0
