@@ -1,12 +1,10 @@
 from abc import ABC, abstractmethod
-
+from uuid import UUID
 from e_library_system.models.member import Member
 
-
 class MemberRepository(ABC):
-
     @abstractmethod
-    def create_member(self, member_id: str, data: Member):
+    def create_member(self, member: Member):
         ...
 
     @abstractmethod
@@ -14,7 +12,7 @@ class MemberRepository(ABC):
         ...
 
     @abstractmethod
-    def get_by_id(self, member_id: str):
+    def get_by_id(self, member_id: UUID):
         ...
 
     @abstractmethod
@@ -22,9 +20,9 @@ class MemberRepository(ABC):
         ...
 
     @abstractmethod
-    def update_member(self, member_id: str, data: Member):
+    def update_member(self, member_id: UUID, member: Member):
         ...
 
     @abstractmethod
-    def delete_member(self, member_id: str):
+    def delete_member(self, member_id: UUID):
         ...
