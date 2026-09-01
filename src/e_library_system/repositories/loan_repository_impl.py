@@ -1,3 +1,4 @@
+from ast import List
 from idlelib import query
 from uuid import UUID
 
@@ -61,10 +62,10 @@ class LoanRepositoryImpl(LoanRepository):
                         member_id = %s, 
                         book_id = %s, 
                         loan_date = %s,
-                        due_date = "%s", 
-                        return_date = "%s", 
+                        due_date = %s, 
+                        return_date = %s, 
                         status = %s
-                    WHERE id = %s
+                    WHERE loan_id = %s
                 """
 
         values = (
