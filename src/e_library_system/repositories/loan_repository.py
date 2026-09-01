@@ -7,7 +7,7 @@ from e_library_system.models.loan import Loan
 class LoanRepository(ABC):
 
     @abstractmethod
-    def save(self , data: Loan):
+    def create_loan(self , loan: Loan):
         ...
 
     @abstractmethod
@@ -23,7 +23,7 @@ class LoanRepository(ABC):
         ...
 
     @abstractmethod
-    def update(self, loan_id: UUID, data: Loan):
+    def update(self, loan_id: UUID, loan: Loan):
         ...
 
     @abstractmethod

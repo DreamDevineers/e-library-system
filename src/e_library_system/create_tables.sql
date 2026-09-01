@@ -9,3 +9,16 @@ CREATE TABLE members (
     joined_at DATETIME NOT NULL,
     active BOOLEAN DEFAULT FALSE
 );
+
+CREATE TABLE loans (
+    loan_id CHAR(36) PRIMARY KEY,
+    member_id CHAR(36) NOT NULL,
+    book_id CHAR(36) NOT NULL,
+    loan_date DATE NOT NULL,
+    due_date DATE NOT NULL,
+    return_date DATE,
+    status VARCHAR(20) NOT NULL,
+
+    FOREIGN KEY (member_id) REFERENCES members(id),
+    FOREIGN KEY (book_id) REFERENCES books(id)
+);
