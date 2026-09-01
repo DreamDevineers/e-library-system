@@ -22,3 +22,14 @@ CREATE TABLE loans (
     FOREIGN KEY (member_id) REFERENCES members(id),
     FOREIGN KEY (book_id) REFERENCES books(id)
 );
+
+CREATE TABLE books(
+  id CHAR(36) PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  author VARCHAR(100) NOT NULL,
+  isbn VARCHAR(20) UNIQUE NOT NULL,
+  category VARCHAR(100) NOT NULL,
+  total_copies INT(20) NOT NULL,
+  available_copies INT(20) NOT NULL
+
+);
