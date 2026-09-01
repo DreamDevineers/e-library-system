@@ -14,7 +14,7 @@ class BookRepository(ABC):
         ...
 
     @abstractmethod
-    def get_available(self) -> Book:
+    def get_available(self) -> list[Book]:
         ...
 
     @abstractmethod
@@ -26,5 +26,5 @@ class BookRepository(ABC):
         ...
 
     @abstractmethod
-    def delete_book(self, book_id: int) -> bool:
+    def delete_book(self, book_id: UUID) -> bool:
         ...
