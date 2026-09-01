@@ -1,3 +1,4 @@
+from idlelib import query
 from uuid import UUID
 
 from e_library_system.database import Database
@@ -111,6 +112,25 @@ class LoanRepositoryImpl(LoanRepository):
             return_date=result["return_date"],
             status = result["status"],
         )
+
+    def get_by_member_id(self, member_id: UUID):
+        query = "SELECT * FROM loans WHERE member_id = %s"
+        self.db.cursor.execute(query, (str(member_id),))
+        result = self.db.cursor.fetchall()
+        loans = []
+
+        for row in result:
+            loans.append(Loan(
+                loan_id = UUID(row["loan_id"]),
+                member_id = UUID(row["member_id"]),
+                book_id = UUID(row["book_id"]),
+                loan_date = row["loan_date"],
+                due_date = row["due_date"],
+                return_date = row["return_date"],
+                status = row["status"],
+            ))
+
+        return loans
 
     def delete(self, loan_id: UUID):
         query = "DELETE FROM loans WHERE loan_id = %s"

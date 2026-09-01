@@ -23,6 +23,10 @@ class LoanRepository(ABC):
         ...
 
     @abstractmethod
+    def get_by_member_id(self, member_id: UUID):
+        ...
+
+    @abstractmethod
     def update(self, loan_id: UUID, loan: Loan):
         ...
 
