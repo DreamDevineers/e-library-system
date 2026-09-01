@@ -10,6 +10,18 @@ CREATE TABLE members (
     active BOOLEAN DEFAULT FALSE
 );
 
+CREATE TABLE books(
+  id CHAR(36) PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  author VARCHAR(100) NOT NULL,
+  isbn VARCHAR(20) UNIQUE NOT NULL,
+  category VARCHAR(100) NOT NULL,
+  total_copies INT(20) NOT NULL,
+  available_copies INT(20) NOT NULL
+  status VARCHAR(20) NOT NULL,
+
+);
+
 CREATE TABLE loans (
     loan_id CHAR(36) PRIMARY KEY,
     member_id CHAR(36) NOT NULL,
