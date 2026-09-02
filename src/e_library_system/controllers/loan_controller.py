@@ -3,11 +3,8 @@ from uuid import UUID
 from fastapi import APIRouter, HTTPException
 
 from e_library_system.dtos.borrow_request import BorrowRequestDto
-from e_library_system.models.loan import Loan
 from e_library_system.repositories.book_repository_impl import BookRepositoryImpl
-from e_library_system.repositories.loan_repository import LoanRepository
 from e_library_system.repositories.loan_repository_impl import LoanRepositoryImpl
-from e_library_system.repositories.member_repository import MemberRepository
 from e_library_system.repositories.member_repository_impl import MemberRepositoryImpl
 from e_library_system.services.loan_service import LoanService
 

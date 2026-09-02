@@ -1,5 +1,3 @@
-from ast import List
-from idlelib import query
 from uuid import UUID
 
 from e_library_system.database import Database
