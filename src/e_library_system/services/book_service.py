@@ -9,6 +9,12 @@ class BookService:
         self.repository = repository
 
 
+    def get_book_by_id(self, book_id: int) -> Book:
+        found_book = self.repository.get_by_id(book_id)
+        if found_book is None:
+            raise ValueError("Book not found")
+        return found_book
+
     def update_book(self, book: Book):
         new_book = self.get_book_by_id(book.id)
         if new_book is None:
@@ -17,11 +23,6 @@ class BookService:
         return self.repository.update_book(new_book)
 
 
-    def get_book_by_id(self, book_id: int) -> Book:
-        found_book = self.repository.get_by_id(book_id)
-        if found_book is None:
-            raise ValueError("Book not found")
-        return found_book
 
     def add_book(self, book: Book) -> Book:
         existing_book = self.get_book_by_id(book.id)
