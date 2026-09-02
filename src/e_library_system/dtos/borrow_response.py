@@ -2,7 +2,7 @@ from datetime import date
 from typing import Optional
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from e_library_system.models.loan import LoanStatus, Loan
 
