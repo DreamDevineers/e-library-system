@@ -1,4 +1,4 @@
-from ast import List
+from typing import List
 from datetime import date, timedelta
 from uuid import UUID
 
@@ -18,7 +18,11 @@ class LoanService:
         self.book_repo = book_repository
 
     def get_all_loan(self) -> List[Loan]:
-        return self.loan_repo.get_all()
+        loan = self.loan_repo.get_all()
+        if loan is None:
+            raise ValueError(f"No loans found")
+
+        return loan
 
     def get_member_loans(self , member_id: UUID) -> List[Loan]:
         member =  self.member_repo.get_by_id(member_id)
