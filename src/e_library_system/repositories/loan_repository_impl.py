@@ -39,6 +39,8 @@ class LoanRepositoryImpl(LoanRepository):
         query = "SELECT * FROM loans"
         self.db.cursor.execute(query)
         result = self.db.cursor.fetchall()
+        if not result:
+            return None
 
         loans = []
         for row in result:

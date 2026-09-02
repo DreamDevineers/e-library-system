@@ -4,7 +4,6 @@ from uuid import uuid4
 from e_library_system.models.loan import Loan
 from e_library_system.repositories.loan_repository_impl import LoanRepositoryImpl
 
-import pytest
 
 class TestLoanRepository:
 
