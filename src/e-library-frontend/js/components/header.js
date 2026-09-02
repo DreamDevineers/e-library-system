@@ -8,19 +8,13 @@ const Header = () => `
             </div>
 
             <ul class="nav-items">
-                <li class="nav-item"><a href="#">Home</a></li>
-                <li class="nav-item"><a href="#">Books</a></li>
-                <li class="nav-item"><a href="#">About Us</a></li>
+                <li class="nav-item"><a href="./">Home</a></li>
+                <li class="nav-item"><a href="./books.html">Books</a></li>
+                <li class="nav-item"><a href="./about.html">About Us</a></li>
             </ul>
 
             <div class="nav-buttons">
-               <button class="button-82-pushable" role="button">
-                <span class="button-82-shadow"></span>
-                <span class="button-82-edge"></span>
-                <span class="button-82-front text">
-                    get started
-                    </span>
-              </button>
+                <a href="#explore" class="btn">login account</a>
             </div>
         </nav>
     </header>
