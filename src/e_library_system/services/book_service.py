@@ -1,12 +1,7 @@
+from uuid import UUID
+
 from e_library_system.models.book import Book
 from e_library_system.repositories.book_repository import BookRepository
-
-
-class IdDoNotMatchException(Exception):
-    pass
-
-class NoBookFoundException(Exception):
-    pass
 
 
 class BookService:
@@ -14,38 +9,50 @@ class BookService:
         self.repository = repository
 
 
+    def update_book(self, book: Book):
+        new_book = self.get_book_by_id(book.id)
+        if new_book is None:
+            raise ValueError("Book not found")
+
+        return self.repository.update_book(new_book)
+
+
+    def get_book_by_id(self, book_id: int) -> Book:
+        found_book = self.repository.get_by_id(book_id)
+        if found_book is None:
+            raise ValueError("Book not found")
+        return found_book
+
     def add_book(self, book: Book) -> Book:
-        save_book= self.repository.add_book(self,book)
-        return save_book
+        existing_book = self.get_book_by_id(book.id)
+
+        if existing_book is None:
+            self.repository.add_book(book)
+            return book
+
+        existing_book.available_copies += 1
+        existing_book.total_copies += 1
+
+        return self.repository.update_book(existing_book)
+
 
     def get_all_books(self) -> list[Book]:
         all_books = self.repository.get_all()
         return all_books
 
-    def get_book_by_id(self, book_id: int) -> Book:
-        found_book = self.repository.get_by_id(book_id)
-        if found_book != book_id:
-            raise IdDoNotMatchException
-        return found_book
-
     def get_available_books(self) -> Book:
         found_books = self.repository.get_available()
         if len(found_books) == 0:
-            raise NoBookFoundException
+            raise ValueError("No books available")
 
         return found_books
 
+    def delete_book(self, book_id: UUID):
+        book = self.get_book_by_id(book_id)
+        if book is None:
+            raise ValueError("Book not found")
 
-    def update_book(self, book: Book) -> None:
-        updated_book = self.repository.update_book(book)
-        if updated_book != book:
-            raise NoBookFoundException
-        return updated_book
-
-    def delete_book(self, book_id: int) -> None:
-        deleted_book = self.repository.delete_book(book_id)
-        if deleted_book != book_id:
-            raise NoBookFoundException
-        return deleted_book
+        count = self.repository.delete_book(book)
+        return count
 
 
