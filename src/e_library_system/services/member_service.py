@@ -1,5 +1,7 @@
 from uuid import UUID
+
 from e_library_system.models.member import Member
+from e_library_system.dtos.login_request import LoginRequest
 from e_library_system.repositories.member_repository import MemberRepository
 
 
@@ -15,6 +17,19 @@ class MemberService:
             raise ValueError("A member with this email already exists")
 
         return self.repository.create_member(member)
+
+    def login(self, login_request: LoginRequest):
+        member = self.repository.get_by_email(login_request.email)
+
+        if member is None:
+            raise ValueError("Invalid email or password")
+
+        if member.password != login_request.password:
+            raise ValueError("Invalid email or password")
+
+        member.active = True
+
+        return self.repository.update_member(member.id, member)
 
     def get_all_members(self):
         return self.repository.get_all()

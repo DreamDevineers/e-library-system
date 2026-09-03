@@ -13,14 +13,16 @@ class MemberRepositoryImpl(MemberRepository):
 
     def create_member(self, member: Member):
         query = """
-                INSERT INTO members (id, name, email, phone, joined_at, active)
-                VALUES (%s, %s, %s, %s, %s, %s) \
+                INSERT INTO members (id, name, email, phone, password, joined_at, active)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """
+
         values = (
             str(member.id),
             member.name,
             member.email,
             member.phone,
+            member.password,
             member.joined_at,
             member.active
         )
