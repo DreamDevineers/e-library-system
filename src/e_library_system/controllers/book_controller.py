@@ -13,6 +13,10 @@ def get_book_service():
     repository = BookRepository()
     return BookService(repository)
 
+@router.get("/{book_id}")
+def create_book(data: Book):
+    pass
+
 @router.post("/",)
 def get_all_books():
     pass
@@ -21,9 +25,6 @@ def get_all_books():
 def get_book(book_id: UUID):
     pass
 
-@router.get("/{book_id}")
-def create_book(data: Book):
-    pass
 
 @router.delete("/{book_id}")
 def update_book(book_id: UUID,data:Book):
