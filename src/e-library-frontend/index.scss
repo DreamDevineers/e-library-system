@@ -58,7 +58,10 @@ body {
         font-family: "Alien Block", sans-serif;
         font-size: 40px;
         color: white;
-        letter-spacing: 1px;
+        letter-spacing: 4px;
+        &:hover {
+            color: white;
+        }
     }
 
     .logo-dot{
@@ -120,7 +123,6 @@ body {
                 font-weight: 700;
                 color: white;
                 width: fit-content;
-
                 span {
                     font-size: 30px;
                     font-weight: 700;

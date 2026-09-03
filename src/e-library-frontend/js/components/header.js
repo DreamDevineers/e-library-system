@@ -2,9 +2,9 @@ const Header = () => `
     <header class="header">
         <nav>
             <div class="logo-box">
-                <p class="logo-text">
+                <a class="logo-text" href="./">
                     bookit<span class="logo-dot">.</span>
-                </p>
+                </a>
             </div>
 
             <ul class="nav-items">
@@ -14,7 +14,7 @@ const Header = () => `
             </ul>
 
             <div class="nav-buttons">
-                <a href="#explore" class="btn">login account</a>
+                <a href="./login.html" class="btn">login account</a>
             </div>
         </nav>
     </header>
