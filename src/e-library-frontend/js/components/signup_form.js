@@ -2,7 +2,9 @@ const SignupForm = () => `
     <section class="form">
         <form class="input-container">
             <p>Sign up for an account to get started</p>
+            <input type="text" placeholder="enter full name...">
             <input type="email" placeholder="enter email...">
+            <input type="text" placeholder="enter phone number...">
             <input type="password" placeholder="enter password...">
             <button type="submit">Sign Up</button>
         </form>
