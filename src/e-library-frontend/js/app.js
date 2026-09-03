@@ -1,7 +1,9 @@
 import Header from "./components/header.js";
-import hero from "./components/hero.js";
+import Hero from "./components/hero.js";
 import About from "./components/about.js";
 import SubHeader from "./components/subheader.js";
+import LoginForm from "./components/login_form.js"
+import SignupForm from "./components/signup_form.js"
 
 const App = () => {
 
@@ -9,7 +11,7 @@ const App = () => {
 
     console.log("Current path:", path);
 
-    if (path.includes("about.html")) {
+    if (path.endsWith("about.html")) {
         return `
             ${Header()}
 
@@ -19,22 +21,22 @@ const App = () => {
         `;
     }
 
-    if (path.includes("login.html")) {
+    if (path.endsWith("login.html")) {
         return `
             ${SubHeader()}
 
             <main>
-                
+                ${LoginForm()}
             </main>
         `;
     }
 
-    if (path.includes("register.html")) {
+    if (path.endsWith("register.html")) {
         return `
             ${SubHeader()}
 
             <main>
-                
+                ${SignupForm()}
             </main>
         `;
     }
@@ -43,7 +45,7 @@ const App = () => {
         ${Header()}
 
         <main>
-            ${hero()}
+            ${Hero()}
         </main>
     `;
 };
