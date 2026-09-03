@@ -8,5 +8,6 @@ class Member:
     name: str = ""
     email: str = ""
     phone: str = ""
+    password: str = ""
     joined_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     active: bool = False

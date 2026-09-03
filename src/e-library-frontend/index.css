@@ -19,8 +19,7 @@ body {
   min-height: 100vh;
   color: white;
 }
-
-.header {
+body .header {
   height: 10vh;
   position: fixed;
   top: 0;
@@ -29,7 +28,7 @@ body {
   z-index: 1000;
   background: rgba(255, 255, 255, 0.222);
 }
-.header nav {
+body .header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,49 +36,48 @@ body {
   width: 90%;
   margin: 0 auto;
 }
-.header a {
+body .header a {
   font-size: 22px;
   text-transform: lowercase;
   color: #f1f1f1;
   font-weight: 600;
 }
-.header a:hover {
+body .header a:hover {
   color: crimson;
 }
-.header .logo-text {
+body .header .logo-text {
   font-family: "Alien Block", sans-serif;
   font-size: 40px;
   color: white;
   letter-spacing: 4px;
 }
-.header .logo-text:hover {
+body .header .logo-text:hover {
   color: white;
 }
-.header .logo-dot {
+body .header .logo-dot {
   font-size: 60px;
   color: crimson;
 }
-.header .nav-items {
+body .header .nav-items {
   display: flex;
   align-items: center;
   gap: 60px;
 }
-.header .nav-buttons {
+body .header .nav-buttons {
   display: flex;
   gap: 20px;
   align-items: center;
 }
-.header .nav-buttons a {
+body .header .nav-buttons a {
   color: white;
   font-size: 24px;
 }
-.header .nav-buttons a span {
+body .header .nav-buttons a span {
   font-size: 30px;
   font-weight: 700;
   margin-left: 5px;
 }
-
-.hero {
+body .hero {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -87,33 +85,79 @@ body {
   width: 50%;
   margin: 0 auto;
 }
-.hero .hero-content {
+body .hero .hero-content {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.hero .hero-content h1 {
+body .hero .hero-content h1 {
   font-size: 80px;
   font-weight: 500px;
   letter-spacing: 3px;
 }
-.hero .hero-content p {
+body .hero .hero-content p {
   font-size: 25px;
   letter-spacing: 5px;
   line-height: 30px;
 }
-.hero .hero-content a {
+body .hero .hero-content a {
   font-size: 24px;
   font-weight: 700;
   color: white;
   width: -moz-fit-content;
   width: fit-content;
 }
-.hero .hero-content a span {
+body .hero .hero-content a span {
   font-size: 30px;
   font-weight: 700;
   margin-left: 5px;
 }
-.hero .hero-content a:hover span {
+body .hero .hero-content a:hover span {
   margin-left: 15px;
+}
+body .form {
+  width: 60%;
+}
+body .form .input-container {
+  width: 50%;
+  margin: 300px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 20px;
+}
+body .form .input-container p {
+  font-size: 25px;
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+body .form .input-container input {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: whitesmoke;
+  color: gray;
+  font-size: 18px;
+  font-weight: 600;
+}
+body .form .input-container button {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+body .form .input-container button:hover {
+  background: white;
+  color: crimson;
+  border: 1px solid crimson;
 }/*# sourceMappingURL=index.css.map */
