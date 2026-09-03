@@ -1,5 +1,7 @@
 import Header from "./components/header.js";
 import hero from "./components/hero.js";
+import About from "./components/about.js";
+import SubHeader from "./components/subheader.js";
 
 const App = () => {
 
@@ -12,8 +14,27 @@ const App = () => {
             ${Header()}
 
             <main>
-                <h1>ABOUT PAGE</h1>
-                <p>about page</p>
+                ${About()}
+            </main>
+        `;
+    }
+
+    if (path.includes("login.html")) {
+        return `
+            ${SubHeader()}
+
+            <main>
+                
+            </main>
+        `;
+    }
+
+    if (path.includes("register.html")) {
+        return `
+            ${SubHeader()}
+
+            <main>
+                
             </main>
         `;
     }
