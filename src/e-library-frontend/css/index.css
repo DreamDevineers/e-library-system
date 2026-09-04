@@ -12,14 +12,15 @@
 }
 
 body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.449), rgba(0, 0, 0, 0.5)), url("./images//hero.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.449), rgba(0, 0, 0, 0.5)), url("../images/hero.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
   color: white;
 }
-body .header {
+
+.header {
   height: 10vh;
   position: fixed;
   top: 0;
@@ -28,7 +29,7 @@ body .header {
   z-index: 1000;
   background: rgba(255, 255, 255, 0.222);
 }
-body .header nav {
+.header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,48 +37,49 @@ body .header nav {
   width: 90%;
   margin: 0 auto;
 }
-body .header a {
+.header a {
   font-size: 22px;
   text-transform: lowercase;
   color: #f1f1f1;
   font-weight: 600;
 }
-body .header a:hover {
+.header a:hover {
   color: crimson;
 }
-body .header .logo-text {
+.header .logo-text {
   font-family: "Alien Block", sans-serif;
   font-size: 40px;
   color: white;
   letter-spacing: 4px;
 }
-body .header .logo-text:hover {
+.header .logo-text:hover {
   color: white;
 }
-body .header .logo-dot {
+.header .logo-dot {
   font-size: 60px;
   color: crimson;
 }
-body .header .nav-items {
+.header .nav-items {
   display: flex;
   align-items: center;
   gap: 60px;
 }
-body .header .nav-buttons {
+.header .nav-buttons {
   display: flex;
   gap: 20px;
   align-items: center;
 }
-body .header .nav-buttons a {
+.header .nav-buttons a {
   color: white;
   font-size: 24px;
 }
-body .header .nav-buttons a span {
+.header .nav-buttons a span {
   font-size: 30px;
   font-weight: 700;
   margin-left: 5px;
 }
-body .hero {
+
+.hero {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -85,40 +87,41 @@ body .hero {
   width: 50%;
   margin: 0 auto;
 }
-body .hero .hero-content {
+.hero .hero-content {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-body .hero .hero-content h1 {
+.hero .hero-content h1 {
   font-size: 80px;
   font-weight: 500px;
   letter-spacing: 3px;
 }
-body .hero .hero-content p {
+.hero .hero-content p {
   font-size: 25px;
   letter-spacing: 5px;
   line-height: 30px;
 }
-body .hero .hero-content a {
+.hero .hero-content a {
   font-size: 24px;
   font-weight: 700;
   color: white;
   width: -moz-fit-content;
   width: fit-content;
 }
-body .hero .hero-content a span {
+.hero .hero-content a span {
   font-size: 30px;
   font-weight: 700;
   margin-left: 5px;
 }
-body .hero .hero-content a:hover span {
+.hero .hero-content a:hover span {
   margin-left: 15px;
 }
-body .form {
+
+.form {
   width: 60%;
 }
-body .form .input-container {
+.form .input-container {
   width: 50%;
   margin: 300px auto;
   display: flex;
@@ -127,24 +130,23 @@ body .form .input-container {
   align-items: start;
   gap: 20px;
 }
-body .form .input-container p {
+.form .input-container p {
   font-size: 25px;
   margin-bottom: 7px;
   font-weight: 600;
 }
-body .form .input-container input {
+.form .input-container input {
   width: 100%;
   padding: 10px;
   font-size: 20px;
   border-radius: 5px;
   border: none;
   outline: none;
-  background: whitesmoke;
   color: gray;
   font-size: 18px;
   font-weight: 600;
 }
-body .form .input-container button {
+.form .input-container button {
   width: 100%;
   padding: 10px;
   font-size: 20px;
@@ -156,7 +158,7 @@ body .form .input-container button {
   font-size: 18px;
   font-weight: 600;
 }
-body .form .input-container button:hover {
+.form .input-container button:hover {
   background: white;
   color: crimson;
   border: 1px solid crimson;
