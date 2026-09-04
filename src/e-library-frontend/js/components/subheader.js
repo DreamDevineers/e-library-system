@@ -8,7 +8,7 @@ const SubHeader = () => `
             </div>
 
             <div class="nav-buttons">
-                <a href="/" class="btn">&#8636; <span>return</span></a>
+                <a href="/" class="btn">&#8636; <span>back</span></a>
             </div>
         </nav>
     </header>
