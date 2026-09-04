@@ -22,7 +22,7 @@ class BookRepository(ABC):
         ...
 
     @abstractmethod
-    def update_book(self, book: Book) -> Book:
+    def  update_book(self, book: Book) -> Book:
         ...
 
     @abstractmethod
