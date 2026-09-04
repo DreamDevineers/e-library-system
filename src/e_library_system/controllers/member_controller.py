@@ -1,6 +1,7 @@
 from uuid import UUID
 from fastapi import APIRouter, HTTPException
 
+from e_library_system.dtos.create_member_request import CreateMemberRequest
 from e_library_system.models.member import Member
 from e_library_system.dtos.login_request import LoginRequest
 from e_library_system.services.member_service import MemberService
@@ -16,7 +17,7 @@ def get_member_service():
 
 
 @router.post("/")
-def create_member(member: Member):
+def create_member(member: CreateMemberRequest):
     try:
         service = get_member_service()
         return service.create_member(member)
