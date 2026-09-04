@@ -22,6 +22,9 @@ body {
     background-repeat: no-repeat;
     min-height: 100vh;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
  .header{
@@ -104,8 +107,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    margin: 0 auto;
 
     .hero-content{
         display: flex;
@@ -149,6 +150,7 @@ body {
     width: 60%;
     .input-container{
         width: 50%;
+        height: 100%;
         margin: 300px auto;
         display: flex;
         flex-direction: column;
