@@ -12,7 +12,7 @@
 }
 
 body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.449), rgba(0, 0, 0, 0.5)), url("../images/hero.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.449), rgba(0, 0, 0, 0.5)), url("../images//hero.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -21,7 +21,7 @@ body {
 }
 
 .header {
-  height: 10vh;
+  height: 7vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -38,7 +38,7 @@ body {
   margin: 0 auto;
 }
 .header a {
-  font-size: 22px;
+  font-size: 18px;
   text-transform: lowercase;
   color: #f1f1f1;
   font-weight: 600;
@@ -48,7 +48,7 @@ body {
 }
 .header .logo-text {
   font-family: "Alien Block", sans-serif;
-  font-size: 40px;
+  font-size: 35px;
   color: white;
   letter-spacing: 4px;
 }
@@ -71,12 +71,19 @@ body {
 }
 .header .nav-buttons a {
   color: white;
-  font-size: 24px;
+  font-size: 20px;
+  background-color: crimson;
+  padding: 10px 20px;
+  border-radius: 10px;
 }
 .header .nav-buttons a span {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
   margin-left: 5px;
+}
+.header .nav-buttons a:hover {
+  background-color: white;
+  color: crimson;
 }
 
 .hero {
@@ -162,4 +169,19 @@ body {
   background: white;
   color: crimson;
   border: 1px solid crimson;
+}
+.form .input-container .register-link, .form .input-container .login-link {
+  font-size: 18px;
+  color: white;
+  margin-top: 10px;
+  background: rgba(245, 245, 245, 0.383);
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+}
+.form .input-container .register-link a, .form .input-container .login-link a {
+  color: white;
+  margin-left: 5px;
+  font-weight: 600;
 }/*# sourceMappingURL=index.css.map */
