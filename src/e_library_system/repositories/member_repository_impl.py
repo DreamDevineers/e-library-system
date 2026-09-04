@@ -98,6 +98,7 @@ class MemberRepositoryImpl(MemberRepository):
                 SET name      = %s,
                     email     = %s,
                     phone     = %s,
+                    password  = %s,
                     joined_at = %s,
                     active    = %s
                 WHERE id = %s
@@ -107,6 +108,7 @@ class MemberRepositoryImpl(MemberRepository):
             member.name,
             member.email,
             member.phone,
+            member.password,
             member.joined_at,
             member.active,
             str(member_id)

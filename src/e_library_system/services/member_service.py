@@ -3,6 +3,8 @@ from uuid import UUID
 from e_library_system.models.member import Member
 from e_library_system.dtos.login_request import LoginRequest
 from e_library_system.repositories.member_repository import MemberRepository
+from datetime import datetime, timezone
+from e_library_system.dtos.create_member_request import CreateMemberRequest
 
 
 class MemberService:
@@ -10,11 +12,20 @@ class MemberService:
     def __init__(self, repository: MemberRepository):
         self.repository = repository
 
-    def create_member(self, member: Member):
-        existing_member = self.repository.get_by_email(member.email)
+    def create_member(self, request: CreateMemberRequest):
+        existing_member = self.repository.get_by_email(request.email)
 
         if existing_member is not None:
             raise ValueError("A member with this email already exists")
+
+        member = Member(
+            name=request.name,
+            email=request.email,
+            phone=request.phone,
+            password=request.password,
+            joined_at=datetime.now(timezone.utc),
+            active=True
+        )
 
         return self.repository.create_member(member)
 
@@ -27,9 +38,7 @@ class MemberService:
         if member.password != login_request.password:
             raise ValueError("Invalid email or password")
 
-        member.active = True
-
-        return self.repository.update_member(member.id, member)
+        return member
 
     def get_all_members(self):
         return self.repository.get_all()
