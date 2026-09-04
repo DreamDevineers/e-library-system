@@ -2,8 +2,8 @@ import Header from "./components/header.js";
 import Hero from "./components/hero.js";
 import About from "./components/about.js";
 import SubHeader from "./components/subheader.js";
-import LoginForm from "./components/login_form.js"
-import SignupForm from "./components/signup_form.js"
+import LoginForm from "./components/loginForm.js"
+import SignupForm from "./components/signupForm.js"
 
 const App = () => {
 
@@ -13,7 +13,7 @@ const App = () => {
 
     if (path.endsWith("about.html")) {
         return `
-            ${Header()}
+            ${SubHeader()}
 
             <main>
                 ${About()}
