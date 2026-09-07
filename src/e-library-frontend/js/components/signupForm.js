@@ -2,6 +2,7 @@ const SignupForm = () => {
     const handleSignup = async (event) => {
         event.preventDefault();
 
+        const role = document.querySelector('input[name="role"]:checked').value;
         const firstName = document.getElementById('signup-first-name').value;
         const lastName = document.getElementById('signup-last-name').value;
         const email = document.getElementById('signup-email').value;
@@ -9,20 +10,17 @@ const SignupForm = () => {
         const password = document.getElementById('signup-password').value;
         const address = document.getElementById('signup-address').value;
 
-        // console.log("first name:", firstName);
-        // console.log("last name:", lastName);
-        // console.log("email:", email);
-        // console.log("phone:", phone);
-        // console.log("password:", password);
-        // console.log("address:", address);
-
         if (password.length < 6) {
             alert("Password must be at least 6 characters long!");
             return;
         }
 
+        const endpoint = role === 'librarian'
+            ? 'http://127.0.0.1:8000/librarian/'
+            : 'http://127.0.0.1:8000/member/';
+
         try {
-            const response = await fetch('http://127.0.0.1:8000/member/', {
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,6 +58,17 @@ const SignupForm = () => {
             <form class="input-container" onsubmit="window.handleSignup(event)">
 
                 <p>Sign up for an account to get started</p>
+
+                <div class="role-toggle">
+                    <label>
+                        <input type="radio" name="role" value="member" checked />
+                        Member
+                    </label>
+                    <label>
+                        <input type="radio" name="role" value="librarian" />
+                        Librarian
+                    </label>
+                </div>
 
                 <input
                     type="text"
