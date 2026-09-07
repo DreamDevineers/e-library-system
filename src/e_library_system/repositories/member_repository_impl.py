@@ -1,5 +1,7 @@
 from uuid import UUID
-from e_library_system.models.member import Member
+from typing import Optional
+
+from e_library_system.models.member import Member, MemberStatus
 from e_library_system.repositories.member_repository import MemberRepository
 from e_library_system.database import Database
 
@@ -10,28 +12,49 @@ class MemberRepositoryImpl(MemberRepository):
         self.db = Database()
         self.db.connect()
 
-    def create_member(self, member: Member):
+    def save(self, member_id: str, data: Member) -> Member:
+
         query = """
-                INSERT INTO members (id, name, email, phone, password, joined_at, active)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO members
+                (id, first_name, last_name, email, password, phone, address, status, created_at)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ON DUPLICATE KEY UPDATE
+                    first_name = %s,
+                    last_name = %s,
+                    email = %s,
+                    password = %s,
+                    phone = %s,
+                    address = %s,
+                    status = %s
                 """
 
         values = (
-            str(member.id),
-            member.name,
-            member.email,
-            member.phone,
-            member.password,
-            member.joined_at,
-            member.active
+            member_id,
+            data.first_name,
+            data.last_name,
+            data.email,
+            data.password,
+            data.phone,
+            data.address,
+            data.status.value,
+            data.created_at,
+
+            data.first_name,
+            data.last_name,
+            data.email,
+            data.password,
+            data.phone,
+            data.address,
+            data.status.value
         )
 
         self.db.cursor.execute(query, values)
         self.db.connection.commit()
 
-        return member
+        return data
 
-    def get_all(self):
+    def find_all(self) -> list[Member]:
+
         query = "SELECT * FROM members"
 
         self.db.cursor.execute(query)
@@ -42,87 +65,137 @@ class MemberRepositoryImpl(MemberRepository):
         for row in results:
             members.append(
                 Member(
-                    id=UUID(row['id']),
-                    name=row['name'],
-                    email=row['email'],
-                    phone=row['phone'],
-                    password=row['password'],
-                    joined_at=row['joined_at'],
-                    active=bool(row['active'])
+                    id=UUID(row["id"]),
+                    first_name=row["first_name"],
+                    last_name=row["last_name"],
+                    email=row["email"],
+                    password=row["password"],
+                    phone=row["phone"],
+                    address=row["address"],
+                    status=MemberStatus(row["status"]),
+                    created_at=row["created_at"]
                 )
             )
 
         return members
 
-    def get_by_id(self, member_id: UUID):
+    def find_by_id(self, member_id: str) -> Optional[Member]:
+
         query = "SELECT * FROM members WHERE id = %s"
 
-        self.db.cursor.execute(query, (str(member_id),))
+        self.db.cursor.execute(query, (member_id,))
         row = self.db.cursor.fetchone()
 
-        if row:
-            return Member(
-                id=UUID(row['id']),
-                name=row['name'],
-                email=row['email'],
-                phone=row['phone'],
-                password=row['password'],
-                joined_at=row['joined_at'],
-                active=bool(row['active'])
-            )
+        if row is None:
+            return None
 
-        return None
+        return Member(
+            id=UUID(row["id"]),
+            first_name=row["first_name"],
+            last_name=row["last_name"],
+            email=row["email"],
+            password=row["password"],
+            phone=row["phone"],
+            address=row["address"],
+            status=MemberStatus(row["status"]),
+            created_at=row["created_at"]
+        )
 
-    def get_by_email(self, email: str):
+    def find_by_email(self, email: str) -> Optional[Member]:
+
         query = "SELECT * FROM members WHERE email = %s"
 
         self.db.cursor.execute(query, (email,))
         row = self.db.cursor.fetchone()
 
-        if row:
-            return Member(
-                id=UUID(row['id']),
-                name=row['name'],
-                email=row['email'],
-                phone=row['phone'],
-                password=row['password'],
-                joined_at=row['joined_at'],
-                active=bool(row['active'])
+        if row is None:
+            return None
+
+        return Member(
+            id=UUID(row["id"]),
+            first_name=row["first_name"],
+            last_name=row["last_name"],
+            email=row["email"],
+            password=row["password"],
+            phone=row["phone"],
+            address=row["address"],
+            status=MemberStatus(row["status"]),
+            created_at=row["created_at"]
+        )
+
+    def find_by_status(self, status: str) -> list[Member]:
+
+        query = "SELECT * FROM members WHERE status = %s"
+
+        self.db.cursor.execute(query, (status,))
+        results = self.db.cursor.fetchall()
+
+        members = []
+
+        for row in results:
+            members.append(
+                Member(
+                    id=UUID(row["id"]),
+                    first_name=row["first_name"],
+                    last_name=row["last_name"],
+                    email=row["email"],
+                    password=row["password"],
+                    phone=row["phone"],
+                    address=row["address"],
+                    status=MemberStatus(row["status"]),
+                    created_at=row["created_at"]
+                )
             )
 
-        return None
+        return members
 
-    def update_member(self, member_id: UUID, member: Member):
+    def disable(self, member_id: str) -> None:
+
         query = """
                 UPDATE members
-                SET name      = %s,
-                    email     = %s,
-                    phone     = %s,
-                    password  = %s,
-                    joined_at = %s,
-                    active    = %s
+                SET status = %s
                 WHERE id = %s
                 """
 
-        values = (
-            member.name,
-            member.email,
-            member.phone,
-            member.password,
-            member.joined_at,
-            member.active,
-            str(member_id)
+        self.db.cursor.execute(
+            query,
+            (MemberStatus.DISABLED.value, member_id)
         )
 
-        self.db.cursor.execute(query, values)
         self.db.connection.commit()
 
-        return self.get_by_id(member_id)
+    def enable(self, member_id: str) -> None:
 
-    def delete_member(self, member_id: UUID):
-        query = "DELETE FROM members WHERE id = %s"
+        query = """
+                UPDATE members
+                SET status = %s
+                WHERE id = %s
+                """
 
-        self.db.cursor.execute(query, (str(member_id),))
+        self.db.cursor.execute(
+            query,
+            (MemberStatus.ACTIVE.value, member_id)
+        )
+
         self.db.connection.commit()
 
-        return self.db.cursor.rowcount > 0
+    def find_active(self) -> list[Member]:
+
+        return self.find_by_status(MemberStatus.ACTIVE.value)
+
+    def count_active(self) -> int:
+
+        query = """
+                SELECT COUNT(*) AS total
+                FROM members
+                WHERE status = %s
+                """
+
+        self.db.cursor.execute(
+            query,
+            (MemberStatus.ACTIVE.value,)
+        )
+
+        row = self.db.cursor.fetchone()
+
+        return row["total"]

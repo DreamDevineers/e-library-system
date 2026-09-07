@@ -1,8 +1,8 @@
 from uuid import UUID
+
 from fastapi import APIRouter, HTTPException
 
 from e_library_system.dtos.create_member_request import CreateMemberRequest
-from e_library_system.models.member import Member
 from e_library_system.dtos.login_request import LoginRequest
 from e_library_system.services.member_service import MemberService
 from e_library_system.repositories.member_repository_impl import MemberRepositoryImpl
@@ -17,10 +17,10 @@ def get_member_service():
 
 
 @router.post("/")
-def create_member(member: CreateMemberRequest):
+def register(member: CreateMemberRequest):
     try:
         service = get_member_service()
-        return service.create_member(member)
+        return service.register(member)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -29,39 +29,65 @@ def create_member(member: CreateMemberRequest):
 def login(login_request: LoginRequest):
     try:
         service = get_member_service()
-        return service.login(login_request)
+        return service.authenticate(login_request)
     except ValueError as e:
         raise HTTPException(status_code=401, detail=str(e))
 
 
 @router.get("/")
-def list_members():
+def get_all():
     service = get_member_service()
-    return service.get_all_members()
+    return service.get_all()
 
 
-@router.get("/{member_id}")
-def get_member(member_id: UUID):
+@router.get("/email/{email}")
+def get_by_email(email: str):
     try:
         service = get_member_service()
-        return service.get_member_by_id(member_id)
+        return service.get_by_email(email)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
 
+@router.get("/status/{status}")
+def get_by_status(status: str):
+    service = get_member_service()
+    return service.get_by_status(status)
+
+
 @router.put("/{member_id}")
-def update_member(member_id: UUID, member: Member):
+def update(member_id: UUID, member: CreateMemberRequest):
     try:
         service = get_member_service()
-        return service.update_member(member_id, member)
+        return service.update(member_id, member)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.delete("/{member_id}")
-def delete_member(member_id: UUID):
+@router.put("/{member_id}/disable")
+def disable(member_id: UUID):
     try:
         service = get_member_service()
-        return service.delete_member(member_id)
+        service.disable(member_id)
+        return {"detail": "Member disabled"}
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@router.put("/{member_id}/enable")
+def enable(member_id: UUID):
+    try:
+        service = get_member_service()
+        service.enable(member_id)
+        return {"detail": "Member enabled"}
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@router.get("/{member_id}")
+def get_by_id(member_id: UUID):
+    try:
+        service = get_member_service()
+        return service.get_by_id(member_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

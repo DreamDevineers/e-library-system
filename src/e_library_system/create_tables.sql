@@ -3,12 +3,14 @@ USE e_library_system;
 
 CREATE TABLE IF NOT EXISTS members (
     id CHAR(36) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(20),
     password VARCHAR(255) NOT NULL,
-    joined_at DATETIME NOT NULL,
-    active BOOLEAN DEFAULT FALSE
+    phone VARCHAR(20),
+    address VARCHAR(255),
+    status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
+    created_at DATETIME NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS books (
