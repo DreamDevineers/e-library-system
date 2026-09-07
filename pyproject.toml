@@ -26,3 +26,7 @@ e-library-system = "e_library_system:main"
 [build-system]
 requires = ["uv_build>=0.12.5,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+pythonpath = ["src", "src/e_library_system/tests/unit"]
