@@ -41,7 +41,8 @@ const SignupForm = () => {
 
             if (response.ok) {
                 alert("Account created successfully! Please login.");
-                window.location.href = "login.html";
+                history.pushState(null, null, '/login');
+                window.dispatchEvent(new PopStateEvent('popstate'));
             } else {
                 alert("Error: " + (data.detail || "Registration failed"));
             }
@@ -106,7 +107,7 @@ const SignupForm = () => {
 
                 <p class="login-link">
                     Already have an account?
-                    <a href="login.html">Login here</a>
+                    <a href="/login" data-link>Login here</a>
                 </p>
 
             </form>
