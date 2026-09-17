@@ -12,8 +12,8 @@ class Database:
         try:
             self.connection = mysql.connector.connect(
                 host="localhost",
-                user="marg",
-                password="0811"
+                user="root",
+                password="Ifunanya@1997"
             )
 
             cursor = self.connection.cursor()
@@ -28,8 +28,8 @@ class Database:
             self.connection = mysql.connector.connect(
                 host="localhost",
                 database="e_library_system",
-                user="olk",
-                password="0811"
+                user="root",
+                password="Ifunanya@1997"
             )
 
             sql_file = Path(__file__).parent / "create_tables.sql"
