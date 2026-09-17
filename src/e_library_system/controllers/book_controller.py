@@ -1,25 +1,26 @@
 import data
 
+from e_library_system.dtos.create_book_request import CreateBookRequest
 from e_library_system.models.book import Book
 from fastapi import APIRouter, HTTPException
 from uuid import UUID
 
-from e_library_system.repositories.book_repository import BookRepository
+from e_library_system.repositories.book_repository_impl import BookRepositoryImpl
 from e_library_system.services.book_service import BookService
 
 router = APIRouter(prefix="/book", tags=["Book"])
 
 def get_book_service():
-    repository = BookRepository()
+    repository = BookRepositoryImpl()
     return BookService(repository)
 
 @router.post("/")
-def add_book(book: Book):
+def add_book(book_request: CreateBookRequest):
     try:
         service = get_book_service()
-        return service.add_book(book)
+        return service.add_book(book_request)
     except ValueError as e:
-        raise HTTPException(status_code = 400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.get("/",)
