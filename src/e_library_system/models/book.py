@@ -30,3 +30,4 @@ class Book(BaseModel):
     isbn: Optional[str] = None
     category: BookCategory
     status: BookStatus = BookStatus.AVAILABLE
+    year: int
