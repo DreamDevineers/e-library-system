@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS books (
     author VARCHAR(100) NOT NULL,
     isbn VARCHAR(20) UNIQUE NOT NULL,
     category VARCHAR(100) NOT NULL,
-    status VARCHAR(20) NOT NULL
+    status VARCHAR(20) NOT NULL,
+    year INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS loans (
