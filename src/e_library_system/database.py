@@ -26,8 +26,8 @@ class Database:
         return {
             "host": os.getenv("DB_HOST", os.getenv("MYSQLHOST", "localhost")),
             "port": int(os.getenv("DB_PORT", os.getenv("MYSQLPORT", 3306))),
-            "user": os.getenv("DB_USER", os.getenv("MYSQLUSER", "root")),
-            "password": os.getenv("DB_PASSWORD", os.getenv("MYSQLPASSWORD", "")),
+            "user": os.getenv("DB_USER", os.getenv("MYSQLUSER", "olk")),
+            "password": os.getenv("DB_PASSWORD", os.getenv("MYSQLPASSWORD", "0811")),
             "database": os.getenv("DB_NAME", os.getenv("MYSQLDATABASE", "e_library_system")),
         }
 
