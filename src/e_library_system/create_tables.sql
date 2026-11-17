@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS e_library_system;
-USE e_library_system;
-
 CREATE TABLE IF NOT EXISTS librarians (
     id CHAR(36) PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,

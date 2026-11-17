@@ -17,10 +17,20 @@ class BookService:
 
         return found_book
 
-    def update_book(self, book: Book):
-        new_book = self.get_book_by_id(book.id)
+    def update_book(self, book_id: UUID, book_data: CreateBookRequest) -> Book:
+        existing = self.get_book_by_id(book_id)
 
-        return self.repository.update_book(new_book)
+        updated_book = Book(
+            id=book_id,
+            title=book_data.title,
+            author=book_data.author,
+            isbn=existing.isbn,
+            category=book_data.category,
+            status=book_data.status,
+            year=book_data.year,
+        )
+
+        return self.repository.update_book(updated_book)
 
     def add_book(self, book_request: CreateBookRequest) -> Book:
         book = Book(
@@ -29,7 +39,8 @@ class BookService:
             author=book_request.author,
             isbn=self.generate_isbn(),
             category=book_request.category,
-            status=book_request.status
+            status=book_request.status,
+            year=book_request.year,
         )
 
         self.repository.add_book(book)
@@ -48,9 +59,8 @@ class BookService:
         return found_books
 
     def delete_book(self, book_id: UUID):
-        book = self.get_book_by_id(book_id)
-
-        return self.repository.delete_book(book)
+        self.get_book_by_id(book_id)
+        return self.repository.delete_book(book_id)
 
     def generate_isbn(self) -> str:
         number = str(uuid4().int)[:12]

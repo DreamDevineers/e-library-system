@@ -17,9 +17,7 @@ class LibrarianService:
         self.librarian_repo = librarian_repository
         self.member_repo = member_repository
 
-
     def register(self, request: CreateLibrarianRequest) -> Librarian:
-
         existing = self.librarian_repo.find_by_email(request.email)
 
         if existing is not None:
@@ -39,7 +37,6 @@ class LibrarianService:
         return librarian
 
     def authenticate(self, login_request: LoginRequest) -> Librarian:
-
         librarian = self.librarian_repo.find_by_email(login_request.email)
 
         if librarian is None:
@@ -50,12 +47,10 @@ class LibrarianService:
 
         return librarian
 
-
     def get_all(self) -> list[Librarian]:
         return self.librarian_repo.find_all()
 
     def get_by_id(self, librarian_id: UUID) -> Librarian:
-
         librarian = self.librarian_repo.find_by_id(str(librarian_id))
 
         if librarian is None:
@@ -64,7 +59,6 @@ class LibrarianService:
         return librarian
 
     def get_by_email(self, email: str) -> Librarian:
-
         librarian = self.librarian_repo.find_by_email(email)
 
         if librarian is None:
@@ -73,7 +67,6 @@ class LibrarianService:
         return librarian
 
     def update(self, librarian_id: UUID, request: CreateLibrarianRequest) -> Librarian:
-
         existing = self.librarian_repo.find_by_id(str(librarian_id))
 
         if existing is None:
@@ -94,19 +87,15 @@ class LibrarianService:
 
         return updated
 
-    # def delete(self, librarian_id: UUID) -> None:
-    #
-    #     existing = self.librarian_repo.find_by_id(str(librarian_id))
-    #
-    #     if existing is None:
-    #         raise ValueError("Librarian not found")
-    #
-    #     self.librarian_repo.delete(str(librarian_id))
+    def delete(self, librarian_id: UUID) -> None:
+        existing = self.librarian_repo.find_by_id(str(librarian_id))
 
-    # Member management
+        if existing is None:
+            raise ValueError("Librarian not found")
+
+        self.librarian_repo.delete(str(librarian_id))
 
     def disable_member(self, member_id: UUID) -> None:
-
         member = self.member_repo.find_by_id(str(member_id))
 
         if member is None:
@@ -115,7 +104,6 @@ class LibrarianService:
         self.member_repo.disable(str(member_id))
 
     def enable_member(self, member_id: UUID) -> None:
-
         member = self.member_repo.find_by_id(str(member_id))
 
         if member is None:

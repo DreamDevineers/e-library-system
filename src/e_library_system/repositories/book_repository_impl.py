@@ -1,7 +1,7 @@
 from uuid import UUID
 
 from e_library_system.database import Database
-from e_library_system.models.book import Book, BookStatus
+from e_library_system.models.book import Book, BookCategory, BookStatus
 from e_library_system.repositories.book_repository import BookRepository
 
 
@@ -12,8 +12,8 @@ class BookRepositoryImpl(BookRepository):
 
     def add_book(self, book: Book) -> Book:
         query = """
-                INSERT INTO books(id, title, author, isbn, category, status)
-                VALUES(%s, %s, %s, %s, %s, %s)
+                INSERT INTO books(id, title, author, isbn, category, status, year)
+                VALUES(%s, %s, %s, %s, %s, %s, %s)
                 """
 
         values = (
@@ -21,8 +21,9 @@ class BookRepositoryImpl(BookRepository):
             book.title,
             book.author,
             book.isbn,
-            book.category,
-            book.status.value
+            book.category.value if hasattr(book.category, "value") else str(book.category),
+            book.status.value if hasattr(book.status, "value") else str(book.status),
+            book.year,
         )
 
         self.db.cursor.execute(query, values)
@@ -36,14 +37,7 @@ class BookRepositoryImpl(BookRepository):
         row = self.db.cursor.fetchone()
 
         if row:
-            return Book(
-                id=UUID(row["id"]),
-                title=row["title"],
-                author=row["author"],
-                isbn=row["isbn"],
-                category=row["category"],
-                status=BookStatus(row["status"])
-            )
+            return self._map_row(row)
 
         return None
 
@@ -52,21 +46,7 @@ class BookRepositoryImpl(BookRepository):
         self.db.cursor.execute(query)
         result = self.db.cursor.fetchall()
 
-        book_list = []
-
-        for row in result:
-            book_list.append(
-                Book(
-                    id=UUID(row["id"]),
-                    title=row["title"],
-                    author=row["author"],
-                    isbn=row["isbn"],
-                    category=row["category"],
-                    status=BookStatus(row["status"])
-                )
-            )
-
-        return book_list
+        return [self._map_row(row) for row in result]
 
     def update_book(self, book: Book) -> Book:
         query = """
@@ -75,7 +55,8 @@ class BookRepositoryImpl(BookRepository):
                     author = %s,
                     isbn = %s,
                     category = %s,
-                    status = %s
+                    status = %s,
+                    year = %s
                 WHERE id = %s
                 """
 
@@ -83,9 +64,10 @@ class BookRepositoryImpl(BookRepository):
             book.title,
             book.author,
             book.isbn,
-            book.category,
-            book.status.value,
-            str(book.id)
+            book.category.value if hasattr(book.category, "value") else str(book.category),
+            book.status.value if hasattr(book.status, "value") else str(book.status),
+            book.year,
+            str(book.id),
         )
 
         self.db.cursor.execute(query, values)
@@ -110,19 +92,15 @@ class BookRepositoryImpl(BookRepository):
         )
 
         results = self.db.cursor.fetchall()
+        return [self._map_row(row) for row in results]
 
-        book_list = []
-
-        for row in results:
-            book_list.append(
-                Book(
-                    id=UUID(row["id"]),
-                    title=row["title"],
-                    author=row["author"],
-                    isbn=row["isbn"],
-                    category=row["category"],
-                    status=BookStatus(row["status"])
-                )
-            )
-
-        return book_list
+    def _map_row(self, row: dict) -> Book:
+        return Book(
+            id=UUID(row["id"]),
+            title=row["title"],
+            author=row["author"],
+            isbn=row["isbn"],
+            category=BookCategory(row["category"]),
+            status=BookStatus(row["status"]),
+            year=int(row["year"]),
+        )

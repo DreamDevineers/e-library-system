@@ -1,31 +1,30 @@
 [project]
 name = "e-library-system"
 version = "0.1.0"
-description = "Add your description here"
+description = "E-Library Management System backend API"
 readme = "README.md"
 authors = [
     { name = "olukayode-asemudara", email = "theolukayodeasemudara@gmail.com" },
-    { name = "Clement Nwafor", email = "" },
+    { name = "Clement Nwafor" },
     { name = "Ajulo Gbemi", email = "ajulogbemi09@gmail.com" }
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
-    "fastapi>=0.141.1",
-    "pymysql>=1.2.0",
-    "sqlalchemy>=2.0.52",
-    "pydantic>=2.13.4",
-    "mysql-connector-python>=26.7.0",
-    "uvicorn>=0.52.4",
-    "pytest>=9.1.1",
-    "data>=0.4",
+    "fastapi>=0.115.0",
+    "pymysql>=1.1.0",
+    "sqlalchemy>=2.0.0",
+    "pydantic>=2.7.0",
+    "mysql-connector-python>=8.4.0",
+    "uvicorn>=0.30.0",
+    "pytest>=8.0.0",
 ]
 
 [project.scripts]
 e-library-system = "e_library_system:main"
 
 [build-system]
-requires = ["uv_build>=0.12.5,<0.13.0"]
-build-backend = "uv_build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 testpaths = ["src"]
